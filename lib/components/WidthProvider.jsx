@@ -70,17 +70,21 @@ export default function WidthProvideRGL<Config>(
 
     componentWillUnmount() {
       this.mounted = false;
+      this._resizeDelay && window.clearTimeout(this._resizeDelay);
       window.removeEventListener("resize", this.onWindowResize);
     }
 
     onWindowResize = () => {
       if (!this.mounted) return;
-      const node = this.elementRef.current; // Flow casts this to Text | Element
-      // fix: grid position error when node or parentNode display is none by window resize
-      // #924 #1084
-      if (node instanceof HTMLElement && node.offsetWidth) {
-        this.setState({ width: node.offsetWidth });
-      }
+      this._resizeDelay && window.clearTimeout(this._resizeDelay);
+      this._resizeDelay = window.setTimeout(() => {
+        const node = this.elementRef.current; // Flow casts this to Text | Element
+        // fix: grid position error when node or parentNode display is none by window resize
+        // #924 #1084
+        if (node instanceof HTMLElement && node.offsetWidth) {
+          this.setState({ width: node.offsetWidth });
+        }
+      }, 0);
     };
 
     render() {
