@@ -1,8 +1,9 @@
 {
   "name": "@rikishi/react-grid-layout",
-  "version": "1.3.4-1",
+  "version": "1.3.5",
   "description": "A draggable and resizable grid layout with responsive breakpoints, for React.",
   "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
     "lint": "make lint",
     "test": "make test",
